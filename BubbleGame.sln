@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{E30219DC-8F1A-2EF0-C827-23D87745AACC}") = "BubbleGame", "Assembly-CSharp.csproj", "{AAD581C0-E99F-4513-8354-26A2E9F0F304}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AAD581C0-E99F-4513-8354-26A2E9F0F304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAD581C0-E99F-4513-8354-26A2E9F0F304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAD581C0-E99F-4513-8354-26A2E9F0F304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAD581C0-E99F-4513-8354-26A2E9F0F304}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
