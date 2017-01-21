@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/WaveBehavior.cs">
+    <Files>
+      <File FileName="Assets/Scripts/BubbleBehavior.cs" Line="52" Column="5" />
+      <File FileName="Assets/Scripts/InitialSetup.cs" Line="32" Column="69" />
+      <File FileName="Assets/Scripts/WaveBehavior.cs" Line="39" Column="18" />
+      <File FileName="Assets/Scripts/MouseBehavior.cs" Line="22" Column="60" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

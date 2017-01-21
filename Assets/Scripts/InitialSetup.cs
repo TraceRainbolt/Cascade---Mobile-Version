@@ -26,8 +26,10 @@ public class InitialSetup : MonoBehaviour {
 
 	        GameObject temp = (GameObject) Instantiate(bubble, Vector3.zero, Quaternion.identity);
 	        temp.transform.position = new Vector3(randomX, randomY, 0f);
-            temp.transform.localScale = new Vector3(randomRadius, randomRadius, 0.1f);
+            temp.transform.localScale = new Vector3(randomRadius, randomRadius, 0f);
             temp.GetComponent<Renderer>().material.color = possibleColors[randColorIndex];
+			temp.GetComponent<BubbleBehavior>().SetColor(possibleColors[randColorIndex]);
+			temp.GetComponent<BubbleBehavior>().SetRadius(randomRadius); //Lol
 	    }
 	}
 }

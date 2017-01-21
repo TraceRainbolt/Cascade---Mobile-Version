@@ -6,44 +6,46 @@ public class WaveBehavior : MonoBehaviour {
 	public float expansionSpeed;
 	public float maxSize;
 	public float ringWidth;
+	//public Color color;
 	public GameObject myBubble;
 
-	private CircleCollider2D outerRingCollider, innerRingCollider;
+	private CircleCollider2D outerRingCollider;//, innerRingCollider;
 	private SpriteRenderer sprite;
+	public Color color;
 	private float sizeDiff;
 
 	void Start () {
-
+		
 		sprite = GetComponentInChildren<SpriteRenderer>();
-		sprite.transform.localScale = new Vector3(.08f, .08f, 0);
+		sprite.color = color;
+		//sprite.transform.localScale = new Vector3(.08f, .08f, 0);
 		outerRingCollider = gameObject.AddComponent<CircleCollider2D>() as CircleCollider2D;
-		innerRingCollider = gameObject.AddComponent<CircleCollider2D>() as CircleCollider2D;
+		//innerRingCollider = gameObject.AddComponent<CircleCollider2D>() as CircleCollider2D;
 
-		outerRingCollider.radius = ringWidth;
-		innerRingCollider.radius = 0f;
+		outerRingCollider.radius = 3.75f;
+		//innerRingCollider.radius = 3.575f;
+
+		transform.localScale = new Vector3(0f, 0f, 0f);
 
 
 	}
 
-	void Update () {
-		if(outerRingCollider.radius < maxSize) {
-			IncreaseRingSize(expansionSpeed);
-			sprite.transform.localScale = new Vector3(sprite.transform.localScale.x + expansionSpeed/(1.15f*Mathf.PI), sprite.transform.localScale.y + expansionSpeed/(1.15f*Mathf.PI), 0);
+	public void SetColor(Color color){
 
+		this.color = color;
+
+	}
+
+	void Update () {
+		if(transform.localScale.x < maxSize) {
+			transform.localScale += new Vector3(expansionSpeed, expansionSpeed, 0f);
+			sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1-(transform.localScale.x / maxSize));
 		}
 		else {
 			KillRing();
 		}
 	}
-
-
-
-	void IncreaseRingSize(float size){
-		outerRingCollider.radius += size;
-		innerRingCollider.radius += size;
-
-
-	}
+		
 
 	void KillRing(){
 		Destroy(gameObject);
