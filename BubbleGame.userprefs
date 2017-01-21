@@ -1,11 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/WaveBehavior.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CameraShakeBehavior.cs">
     <Files>
-      <File FileName="Assets/Scripts/BubbleBehavior.cs" Line="52" Column="5" />
-      <File FileName="Assets/Scripts/InitialSetup.cs" Line="32" Column="69" />
-      <File FileName="Assets/Scripts/WaveBehavior.cs" Line="39" Column="18" />
-      <File FileName="Assets/Scripts/MouseBehavior.cs" Line="22" Column="60" />
+      <File FileName="Assets/Scripts/BubbleBehavior.cs" Line="30" Column="12" />
+      <File FileName="Assets/Scripts/InitialSetup.cs" Line="7" Column="2" />
+      <File FileName="Assets/Scripts/WaveBehavior.cs" Line="14" Column="45" />
+      <File FileName="Assets/Scripts/MouseBehavior.cs" Line="7" Column="2" />
+      <File FileName="Assets/Scripts/CameraShakeBehavior.cs" Line="22" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

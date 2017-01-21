@@ -5,12 +5,6 @@ public class MouseBehavior : MonoBehaviour {
 
 	public GameObject ring;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
 	void Update () {
 		if(Input.GetButtonDown("Fire1")) {
 			Vector3 inM = Input.mousePosition;

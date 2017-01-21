@@ -3,17 +3,20 @@ using System.Collections;
 
 public class WaveBehavior : MonoBehaviour {
 
+	public static int numWaves;
+
 	public float expansionSpeed;
 	public float maxSize;
 	public float ringWidth;
 	public GameObject myBubble;
 	public Color color;
 
-	private CircleCollider2D outerRingCollider;//, innerRingCollider;
+	private CircleCollider2D outerRingCollider;
 	private SpriteRenderer sprite;
 	private float sizeDiff;
 
 	void Start () {
+		numWaves++;
 		sprite = GetComponentInChildren<SpriteRenderer>();
 		sprite.color = color;
 
@@ -37,6 +40,7 @@ public class WaveBehavior : MonoBehaviour {
 	}
 
 	void KillRing(){
+		numWaves--;
 		Destroy(gameObject);
 	}
 }

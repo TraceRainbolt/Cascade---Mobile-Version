@@ -5,14 +5,8 @@ public class InitialSetup : MonoBehaviour {
 
     public GameObject bubble;
 
-	// Use this for initialization
 	void Start(){
 	    createBubbles();
-	}
-	
-	// Update is called once per frame
-	void Update(){
-	
 	}
 
 	void createBubbles(){

@@ -9,7 +9,7 @@ public class BubbleBehavior : MonoBehaviour {
 
     private Vector3 shiftedPoint;
     private int randDir;
-
+	private Camera cam;
 	private CircleCollider2D collider;
 
 	public void SetColor(Color color){
@@ -23,15 +23,16 @@ public class BubbleBehavior : MonoBehaviour {
 	void Start () {
 		shiftedPoint = new Vector3(transform.position.x + .2f, transform.position.y, 0);
 		randDir = Random.Range(-3, 4);
+		cam = Camera.main;
 	}
 	
 
-	void Update () {
+	void FixedUpdate () {
 	    MakeRandomMovement(shiftedPoint);
 	}
 
 	void Pop(){
-		print(color);
+		
 		GameObject ring = (GameObject)Instantiate(this.ring, transform.position, Quaternion.identity);
 		ring.GetComponent<WaveBehavior>().maxSize = radius/140;
 		ring.GetComponent<WaveBehavior>().ringWidth = .00001f;
@@ -43,6 +44,9 @@ public class BubbleBehavior : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Wave")){
 			if(other.GetComponent<WaveBehavior>().color.Equals(Color.white)) {
+				if(radius > 65) {
+					cam.GetComponent<CameraShakeBehavior>().ShakeCamera(.2f);
+				}
 				Pop();
 			}
 			else if(other.GetComponent<WaveBehavior>().color.Equals(color)) {
@@ -81,9 +85,6 @@ public class BubbleBehavior : MonoBehaviour {
             newRadius = radius*.1f + otherBubble.radius;
             Destroy(gameObject);
         }
-
-        //transform.position = new Vector3(999999, 0, 0);
-        //otherBubble.transform.position = new Vector3(-999999, 0, 0);
 
         newBubble.transform.localScale = new Vector3(newRadius, newRadius, 0f);
         newBubble.GetComponent<Renderer>().material.color = newColor;
