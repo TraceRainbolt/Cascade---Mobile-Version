@@ -10,6 +10,8 @@ public class BubbleBehavior : MonoBehaviour {
     private Vector3 shiftedPoint;
     private int randDir;
 	private Camera cam;
+	private SoundManager sound;
+	private ScoreManager score;
 	private CircleCollider2D collider;
 
 	public void SetColor(Color color){
@@ -24,6 +26,8 @@ public class BubbleBehavior : MonoBehaviour {
 		shiftedPoint = new Vector3(transform.position.x + .2f, transform.position.y, 0);
 		randDir = Random.Range(-3, 4);
 		cam = Camera.main;
+		sound = cam.GetComponent<SoundManager>();
+		score = cam.GetComponent<ScoreManager>();
 	}
 	
 
@@ -38,6 +42,8 @@ public class BubbleBehavior : MonoBehaviour {
 		ring.GetComponent<WaveBehavior>().ringWidth = .00001f;
 		ring.GetComponent<WaveBehavior>().expansionSpeed = .01f;
 		ring.GetComponent<WaveBehavior>().SetColor(color);
+		sound.PlayPop(radius);
+		score.AddScore(3);
 		Destroy(gameObject);
 	}
 
@@ -55,6 +61,7 @@ public class BubbleBehavior : MonoBehaviour {
 			else {
 				color = other.GetComponent<WaveBehavior>().color;
 				GetComponent<Renderer>().material.color = other.GetComponent<WaveBehavior>().color;
+				sound.PlayFlip(radius);
 			}
 		}
 	}

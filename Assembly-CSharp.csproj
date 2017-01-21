@@ -49,6 +49,8 @@
      <Compile Include="Assets\Scripts\CameraShakeBehavior.cs" />
      <Compile Include="Assets\Scripts\InitialSetup.cs" />
      <Compile Include="Assets\Scripts\MouseBehavior.cs" />
+     <Compile Include="Assets\Scripts\ScoreManager.cs" />
+     <Compile Include="Assets\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Scripts\WaveBehavior.cs" />
      <None Include="Assets\Animations\Animations.txt" />
      <None Include="Assets\Textures\Textures.txt" />

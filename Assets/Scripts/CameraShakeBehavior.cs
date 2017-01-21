@@ -22,6 +22,6 @@ public class CameraShakeBehavior : MonoBehaviour {
 	}
 
 	public void ShakeCamera(float shakeMax){
-		transform.Translate(new Vector3(Random.Range(.1f, shakeMax), Random.Range(.1f, shakeMax), 0));
+		transform.Translate(new Vector3(Random.Range(-shakeMax, shakeMax), Random.Range(-shakeMax, shakeMax), 0));
 	}
 }
