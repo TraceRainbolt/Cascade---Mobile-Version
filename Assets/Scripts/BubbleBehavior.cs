@@ -7,31 +7,33 @@ public class BubbleBehavior : MonoBehaviour {
 	public Color color;
 	public GameObject ring;
 
+    private Vector3 shiftedPoint;
+    private int randDir;
+
 	private CircleCollider2D collider;
 
 	public void SetColor(Color color){
 		this.color = color;
-
 	}
 
 	public void SetRadius(float radius){
 		this.radius = radius;
-
 	}
 
 	void Start () {
-		
+		shiftedPoint = new Vector3(transform.position.x + .2f, transform.position.y, 0);
+		randDir = Random.Range(-3, 4);
 	}
 	
 
 	void Update () {
-		
+	    MakeRandomMovement(shiftedPoint);
 	}
 
 	void Pop(){
 		print(color);
 		GameObject ring = (GameObject)Instantiate(this.ring, transform.position, Quaternion.identity);
-		ring.GetComponent<WaveBehavior>().maxSize = radius/120;
+		ring.GetComponent<WaveBehavior>().maxSize = radius/140;
 		ring.GetComponent<WaveBehavior>().ringWidth = .00001f;
 		ring.GetComponent<WaveBehavior>().expansionSpeed = .01f;
 		ring.GetComponent<WaveBehavior>().SetColor(color);
@@ -39,9 +41,7 @@ public class BubbleBehavior : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
-		if(other.CompareTag("Bubble")){
-			Destroy(gameObject);
-		}else if(other.CompareTag("Wave")){
+        if(other.CompareTag("Wave")){
 			if(other.GetComponent<WaveBehavior>().color.Equals(Color.white)) {
 				Pop();
 			}
@@ -51,12 +51,43 @@ public class BubbleBehavior : MonoBehaviour {
 			else {
 				color = other.GetComponent<WaveBehavior>().color;
 				GetComponent<Renderer>().material.color = other.GetComponent<WaveBehavior>().color;
-
 			}
-
 		}
 	}
-		
 
+	void OnTriggerStay2D(Collider2D other){
+        if(other.CompareTag("Bubble")){
+            mergeBubbles(other);
+        }
+    }
 
+    void MakeRandomMovement(Vector3 point){
+        transform.RotateAround(point, Vector3.forward, randDir * 7 * Time.deltaTime);
+    }
+
+    void mergeBubbles(Collider2D other){
+        BubbleBehavior otherBubble = other.GetComponent<BubbleBehavior>();
+        Color newColor = otherBubble.color;
+        float newRadius = 0;
+        Vector3 newPosition = otherBubble.transform.position;
+        GameObject newBubble = otherBubble.gameObject;
+        if(radius > otherBubble.radius){
+            newBubble = gameObject;
+            newColor = color;
+            newPosition = transform.position;
+            newRadius = radius + otherBubble.radius*.1f;
+            Destroy(other.gameObject);
+        } else {
+            newRadius = radius*.1f + otherBubble.radius;
+            Destroy(gameObject);
+        }
+
+        //transform.position = new Vector3(999999, 0, 0);
+        //otherBubble.transform.position = new Vector3(-999999, 0, 0);
+
+        newBubble.transform.localScale = new Vector3(newRadius, newRadius, 0f);
+        newBubble.GetComponent<Renderer>().material.color = newColor;
+        newBubble.GetComponent<BubbleBehavior>().SetColor(newColor);
+        newBubble.GetComponent<BubbleBehavior>().SetRadius(newRadius);
+    }
 }
