@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using Random = UnityEngine.Random;
+using System;
 using System.Collections;
 
 public class BubbleBehavior : MonoBehaviour {
@@ -6,6 +8,7 @@ public class BubbleBehavior : MonoBehaviour {
 	public float radius;
 	public Color color;
 	public GameObject ring;
+	public Sprite sp;
 
     private Vector3 shiftedPoint;
     private int randDir;
@@ -17,6 +20,10 @@ public class BubbleBehavior : MonoBehaviour {
 	public void SetColor(Color color){
 		this.color = color;
 	}
+
+	public void SetSprite(Sprite sp){
+    	this.sp = sp;
+    }
 
 	public void SetRadius(float radius){
 		this.radius = radius;
@@ -38,7 +45,7 @@ public class BubbleBehavior : MonoBehaviour {
 	void Pop(){
 		
 		GameObject ring = (GameObject)Instantiate(this.ring, transform.position, Quaternion.identity);
-		ring.GetComponent<WaveBehavior>().maxSize = radius/140;
+		ring.GetComponent<WaveBehavior>().maxSize = radius*16;
 		ring.GetComponent<WaveBehavior>().ringWidth = .00001f;
 		ring.GetComponent<WaveBehavior>().expansionSpeed = .01f;
 		ring.GetComponent<WaveBehavior>().SetColor(color);
@@ -59,8 +66,15 @@ public class BubbleBehavior : MonoBehaviour {
 				Pop();
 			}
 			else {
+			    Color[] colors = Camera.main.GetComponent<InitialSetup>().getColorArray();
+			    Sprite[] sprites = Camera.main.GetComponent<InitialSetup>().getSpriteArray();
+
 				color = other.GetComponent<WaveBehavior>().color;
-				GetComponent<Renderer>().material.color = other.GetComponent<WaveBehavior>().color;
+				int index = Array.IndexOf(colors, color);
+				Sprite newSprite = sprites[index];
+
+				GetComponent<SpriteRenderer>().sprite = newSprite;
+				//GetComponent<Renderer>().material.color = other.GetComponent<WaveBehavior>().color;
 				sound.PlayFlip(radius);
 			}
 		}
@@ -79,12 +93,14 @@ public class BubbleBehavior : MonoBehaviour {
     void mergeBubbles(Collider2D other){
         BubbleBehavior otherBubble = other.GetComponent<BubbleBehavior>();
         Color newColor = otherBubble.color;
+        Sprite newSprite = otherBubble.sp;
         float newRadius = 0;
         Vector3 newPosition = otherBubble.transform.position;
         GameObject newBubble = otherBubble.gameObject;
         if(radius > otherBubble.radius){
             newBubble = gameObject;
             newColor = color;
+            newSprite = sp;
             newPosition = transform.position;
             newRadius = radius + otherBubble.radius*.1f;
             Destroy(other.gameObject);
@@ -93,9 +109,10 @@ public class BubbleBehavior : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        newBubble.transform.localScale = new Vector3(newRadius, newRadius, 0f);
-        newBubble.GetComponent<Renderer>().material.color = newColor;
+        newBubble.transform.localScale = new Vector3(newRadius*2, newRadius*2, 0f);
+        //newBubble.GetComponent<Renderer>().material.color = newColor;
         newBubble.GetComponent<BubbleBehavior>().SetColor(newColor);
+        newBubble.GetComponent<BubbleBehavior>().SetSprite(newSprite);
         newBubble.GetComponent<BubbleBehavior>().SetRadius(newRadius);
     }
 }
