@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour {
 	private int delayCounter = 0;
 
 	private int scoreDisplayed;
-	private int totalScore;
+	public int totalScore;
 	private SoundManager sound;
 
 

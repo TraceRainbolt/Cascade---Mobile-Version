@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class TimerController : MonoBehaviour {
 
-    public float timeLeft = 180;
+    public float timeLeft = 121;
 
 	public bool gameOver;
+	int gameOverDelay = 150;
 
 	// Use this for initialization
 	void Start () {
@@ -23,18 +25,30 @@ public class TimerController : MonoBehaviour {
 		}
 		else {
 			gameOver = true;
-			GameOver();
+			Camera.main.GetComponent<MouseBehavior>().GameOver();
 		}
 	}
 
+
+
 	void GameOver(){
-		Camera.main.GetComponent<MouseBehavior>().GameOver();
+		
 
-
+		gameOverDelay--;
+		Camera.main.GetComponent<SoundManager>().sourceAdrenaline.volume -= .01f;
+		if(gameOverDelay <= 0) {
+			
+			SceneManager.LoadScene(1, LoadSceneMode.Single);
+		}
 
 	}
 
 	void FixedUpdate(){
+
+		if(gameOver) {
+			GameOver();
+		}
+
 	    InitialSetup set = Camera.main.GetComponent<InitialSetup>();
 	    if((int) timeLeft % 30 == 1 && GameObject.FindGameObjectsWithTag("Bubble").Length < 400){
             float randomRadius = Random.Range(0.1f, 1)/40;

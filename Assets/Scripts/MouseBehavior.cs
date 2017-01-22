@@ -9,6 +9,7 @@ public class MouseBehavior : MonoBehaviour {
 
 	public void GameOver(){
 		done = true;
+		GameObject.FindGameObjectWithTag("ScoreSaver").GetComponent<ScoreSaverBehavior>().finalScore = Camera.main.GetComponent<ScoreManager>().totalScore;
 	}
 
 	void Update () {

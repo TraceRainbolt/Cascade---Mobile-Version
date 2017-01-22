@@ -106,7 +106,7 @@ public class BubbleBehavior : MonoBehaviour {
 			sound.PlayPop(radius);
 		}
 		int comboScore = (int) (Mathf.Pow(2, prevCombo)*100*radius);
-        print(comboScore);
+
 		score.AddScore(comboScore);
 
 		shrinkDelay = 15;

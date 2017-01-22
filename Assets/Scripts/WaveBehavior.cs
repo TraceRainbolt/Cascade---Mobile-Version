@@ -14,6 +14,7 @@ public class WaveBehavior : MonoBehaviour {
 	public Vector3 origin;
 	public int comboCounter = 0;
 	public GameObject displayMult;
+	public bool shake = true;
 
 	private CircleCollider2D outerRingCollider;
 	private SpriteRenderer sprite;
@@ -35,8 +36,10 @@ public class WaveBehavior : MonoBehaviour {
 		transform.localScale = new Vector3(0f, 0f, 0f);
 
 		camShake = Camera.main.GetComponent<CameraShakeBehavior>();
-		GameObject displayed = (GameObject) Instantiate(displayMult, transform.position, Quaternion.identity);
-		displayed.GetComponent<ComboBehavior>().SetMultiplier(comboCounter - 1);
+		if(shake) {
+			GameObject displayed = (GameObject)Instantiate(displayMult, transform.position, Quaternion.identity);
+			displayed.GetComponent<ComboBehavior>().SetMultiplier(comboCounter - 1);
+		}
 
 	}
 
@@ -45,18 +48,26 @@ public class WaveBehavior : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-
-		if(maxSize > 3 && transform.localScale.x*2.4 < maxSize) {
-			camShake.ShakeCamera(.2f);
-		} else if(maxSize > 2 && transform.localScale.x*2.4 < maxSize) {
-			camShake.ShakeCamera(.1f);
-		}else if(maxSize > 1.4 && transform.localScale.x*2.4 < maxSize) {
-			camShake.ShakeCamera(.05f);
+		if(shake) {
+			if(maxSize > 3 && transform.localScale.x * 2.4 < maxSize) {
+				camShake.ShakeCamera(.2f);
+			}
+			else if(maxSize > 2 && transform.localScale.x * 2.4 < maxSize) {
+					camShake.ShakeCamera(.1f);
+				}
+				else if(maxSize > 1.4 && transform.localScale.x * 2.4 < maxSize) {
+						camShake.ShakeCamera(.05f);
+					}
 		}
-
 		if(transform.localScale.x < maxSize) {
 			transform.localScale += new Vector3(expansionSpeed, expansionSpeed, 0f);
-			sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1-(transform.localScale.x / maxSize));
+			if(!shake) {
+				sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, .5f-(transform.localScale.x / maxSize));
+			}
+			else {
+				sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1-(transform.localScale.x / maxSize));
+			}
+
 		}
 		else {
 			KillRing();
