@@ -10,7 +10,7 @@ public class BubbleBehavior : MonoBehaviour {
 	public GameObject ring;
 	public Sprite sp;
 	public int immunityDelay = 0;
-
+	public int shrinkDelay = -1;
 	public String history = "";
 
     private Vector3 shiftedPoint;
@@ -43,31 +43,58 @@ public class BubbleBehavior : MonoBehaviour {
 		score = cam.GetComponent<ScoreManager>();
 		rb = GetComponent<Rigidbody2D>();
 		rb.mass = radius*100;
+
+	}
+
+	public static int GetNumBubbles(){
+		return GameObject.FindGameObjectsWithTag("Bubble").Length;
 	}
 
 	void Update(){
-	    if(Input.GetButtonDown("Fire1")){
-	        immunityDelay = 0;
-	    }
+		if(Input.GetKeyDown("q")) {
+			print(GetNumBubbles());
+		}
 	}
 
 	void FixedUpdate () {
 	    if(immunityDelay > 0){
 	        immunityDelay--;
 	    }
-	    MakeRandomMovement(shiftedPoint);
+	    
+
+		if(shrinkDelay != -1) {
+			if(shrinkDelay == 0) {
+				Destroy(gameObject);
+			}
+			else {
+				shrinkDelay--;
+				transform.localScale /= 1.5f;
+			}
+		}
+		else {
+			MakeRandomMovement(shiftedPoint);
+		}
+
 	}
 
 	void Pop(){
 		GameObject ring = (GameObject)Instantiate(this.ring, transform.position, Quaternion.identity);
-		ring.GetComponent<WaveBehavior>().maxSize = radius*16;
+		ring.GetComponent<WaveBehavior>().maxSize = radius*12;
 		ring.GetComponent<WaveBehavior>().ringWidth = .00001f;
 		ring.GetComponent<WaveBehavior>().expansionSpeed = .01f;
 		ring.GetComponent<WaveBehavior>().SetColor(color);
-		SpawnNewBubbles();
+
+		if(GetNumBubbles() < 500) {
+			SpawnNewBubbles();
+		}
+
 		sound.PlayPop(radius);
 		score.AddScore(3);
-		Destroy(gameObject);
+
+		shrinkDelay = 15;
+		immunityDelay = 500;
+		Destroy(rb);
+		//Destroy(gameObject);
 	}
 
 	void SpawnNewBubbles(){
@@ -143,5 +170,7 @@ public class BubbleBehavior : MonoBehaviour {
         newBubble.GetComponent<BubbleBehavior>().SetSprite(newSprite);
         newBubble.GetComponent<BubbleBehavior>().SetRadius(newRadius);
         newBubble.GetComponent<BubbleBehavior>().history = "Born from a merge";
+
+
     }
 }
