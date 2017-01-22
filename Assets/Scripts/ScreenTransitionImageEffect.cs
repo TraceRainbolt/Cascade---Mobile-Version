@@ -2,6 +2,7 @@
 // http://forum.unity3d.com/threads/circular-fade-in-out-shader.344816/
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 [ExecuteInEditMode]
@@ -56,8 +57,10 @@ public class ScreenTransitionImageEffect : MonoBehaviour
     void FixedUpdate(){
         if(activated)
             maskValue -= .01f;
-        if(maskValue =< 0){
+        if(maskValue <= .25f){
             //load scene
+			SceneManager.LoadScene(0, LoadSceneMode.Single);
+
         }
     }
 

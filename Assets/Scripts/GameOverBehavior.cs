@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class GameOverBehavior : MonoBehaviour {
@@ -21,6 +22,10 @@ public class GameOverBehavior : MonoBehaviour {
 			ring.GetComponent<WaveBehavior>().expansionSpeed = .001f*Random.Range(1,8);
 			ring.GetComponent<WaveBehavior>().SetColor(new Color(Random.Range(0f,1f),Random.Range(0f,1f),Random.Range(0f,1f), .1f));
 			ring.GetComponent<WaveBehavior>().shake = false;
+		}
+
+		if(Input.GetButtonDown("Fire1")) {
+			SceneManager.LoadScene(2, LoadSceneMode.Single);
 		}
 	}
 }

@@ -9,7 +9,10 @@ public class SoundManager : MonoBehaviour {
 	public AudioClip bigPopSound;
 	public AudioClip comboSound;
 	public AudioClip multSound;
+	public AudioClip cheerSound;
+	public AudioClip timerSound;
 
+	public bool playMusic = true;
 
 	public AudioSource sourcePop;
 	public AudioSource sourceCounterDing;
@@ -18,15 +21,48 @@ public class SoundManager : MonoBehaviour {
 	public AudioSource sourceBigPop;
 	public AudioSource sourceCombo;
 	public AudioSource sourceMult;
+	public AudioSource sourceCheer;
 
 	void Start () {
-        sourceAdrenaline.Play();
-        sourceAdrenaline.loop = true;
-	}
-	
 
-	void Update () {
-	
+		if(playMusic) {
+			sourceAdrenaline = GameObject.FindGameObjectWithTag("ScoreSaver").GetComponent<AudioSource>();
+
+			sourceAdrenaline.Play();
+
+		}
+	}
+
+	private int cheerCooldown = 100;
+	private int beepCooldown = 0;
+
+	void FixedUpdate () {
+		if(cheerCooldown > 0) {
+			cheerCooldown--;
+		}
+		if(beepCooldown > 0) {
+			beepCooldown--;
+		}
+	}
+
+	public void PlayCheer(){
+
+		if(cheerCooldown == 0) {
+			sourceCheer.PlayOneShot(cheerSound, .75f);
+			cheerCooldown = 100;
+		}
+
+
+	}
+
+	public void PlayBeep(){
+
+		if(beepCooldown == 0) {
+			sourceCheer.PlayOneShot(timerSound, .05f*(12-GameObject.FindGameObjectWithTag("Timer").GetComponent<TimerController>().timeLeft));
+			beepCooldown = 59;
+		}
+
+
 	}
 
 	public void PlayMultiplier(int mult){

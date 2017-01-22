@@ -52,11 +52,17 @@
      <Compile Include="Assets\Scripts\ComboTextBehavior.cs" />
      <Compile Include="Assets\Scripts\ExplosionBehavior.cs" />
      <Compile Include="Assets\Scripts\GameOverBehavior.cs" />
+     <Compile Include="Assets\Scripts\ImplodeBehavior.cs" />
      <Compile Include="Assets\Scripts\InitialSetup.cs" />
      <Compile Include="Assets\Scripts\MouseBehavior.cs" />
      <Compile Include="Assets\Scripts\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\ScoreSaverBehavior.cs" />
+     <Compile Include="Assets\Scripts\ScreenTransitionImageEffect.cs" />
      <Compile Include="Assets\Scripts\SoundManager.cs" />
+     <Compile Include="Assets\Scripts\SpawnParticleBehavior.cs" />
+     <Compile Include="Assets\Scripts\StartMenuButtonBehavior.cs" />
+     <Compile Include="Assets\Scripts\StartMenuController.cs" />
+     <Compile Include="Assets\Scripts\StartMenuMaskCamera.cs" />
      <Compile Include="Assets\Scripts\TimerController.cs" />
      <Compile Include="Assets\Scripts\WaveBehavior.cs" />
      <None Include="Assets\Animations\Animations.txt" />
@@ -67,6 +73,7 @@
      <None Include="Assets\Prefabs\Prefabs.txt" />
      <None Include="Assets\Scripts\Scripts.txt" />
      <None Include="Assets\Sprites\Sprites.txt" />
+     <None Include="Assets\Shaders\ScreenTransitionImageEffect.shader" />
      <None Include="Assets\Scenes\Scenes.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

@@ -13,6 +13,8 @@ public class BubbleBehavior : MonoBehaviour {
 	public int shrinkDelay = -1;
 	public String history = "";
 	public GameObject exploder;
+	public GameObject imploder;
+	public GameObject spawnPar;
 
 
     private Vector3 shiftedPoint;
@@ -51,6 +53,9 @@ public class BubbleBehavior : MonoBehaviour {
 		score = cam.GetComponent<ScoreManager>();
 		rb = GetComponent<Rigidbody2D>();
 		rb.mass = radius*100;
+
+		GameObject exp = (GameObject)Instantiate(spawnPar, transform.position, Quaternion.identity);
+		exp.GetComponent<SpawnParticleBehavior>().SetColor(color);
 
 	}
 
@@ -97,6 +102,11 @@ public class BubbleBehavior : MonoBehaviour {
         ring.GetComponent<WaveBehavior>().comboCounter = prevCombo + 1;
 		if(GetNumBubbles() < 500) {
 			SpawnNewBubbles();
+		}
+
+		if(radius > .03) {
+			GameObject exp = (GameObject)Instantiate(imploder, transform.position, Quaternion.identity);
+			exp.GetComponent<ImplodeBehavior>().SetColor(color);
 		}
 
 		if(radius > .16f) {

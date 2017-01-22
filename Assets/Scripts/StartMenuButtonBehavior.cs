@@ -26,13 +26,15 @@ public class StartMenuButtonBehavior : MonoBehaviour {
     }
 
     void Pop(){
-		GameObject ring = (GameObject)Instantiate(this.ring, transform.position, Quaternion.identity);
-		ring.GetComponent<WaveBehavior>().maxSize = 20.5f;
-		ring.GetComponent<WaveBehavior>().shake = false;
-		ring.GetComponent<WaveBehavior>().ringWidth = .00001f;
-		ring.GetComponent<WaveBehavior>().expansionSpeed = .052f;
-		ring.GetComponent<WaveBehavior>().SetColor(new Color(0f, .9f, .7f));
-        ring.GetComponent<WaveBehavior>().comboCounter = 0;
+		for(int i = 0; i < 3; i++) {
+			GameObject ring = (GameObject)Instantiate(this.ring, transform.position, Quaternion.identity);
+			ring.GetComponent<WaveBehavior>().maxSize = 20.5f;
+			ring.GetComponent<WaveBehavior>().shake = false;
+			ring.GetComponent<WaveBehavior>().ringWidth = .00001f;
+			ring.GetComponent<WaveBehavior>().expansionSpeed = .049f - i*.005f;
+			ring.GetComponent<WaveBehavior>().SetColor(new Color(0f, .9f, .7f));
+			ring.GetComponent<WaveBehavior>().comboCounter = 0;
+		}
 
 	    //SpawnNewBubbles();
 
