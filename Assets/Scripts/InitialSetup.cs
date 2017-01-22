@@ -39,13 +39,35 @@ public class InitialSetup : MonoBehaviour {
 	        GameObject temp = (GameObject) Instantiate(bubble, Vector3.zero, Quaternion.identity);
 	        temp.transform.position = new Vector3(randomX, randomY, 0f);
             temp.transform.localScale = new Vector3(randomRadius*2, randomRadius*2, 0f);
-            //temp.GetComponent<Renderer>().material.color = possibleColors[randIndex];
             temp.GetComponent<SpriteRenderer>().sprite = possibleSprites[randIndex];
 			temp.GetComponent<BubbleBehavior>().SetColor(possibleColors[randIndex]);
 			temp.GetComponent<BubbleBehavior>().SetSprite(possibleSprites[randIndex]);
 			temp.GetComponent<BubbleBehavior>().SetRadius(randomRadius); //Lol
+	        temp.GetComponent<BubbleBehavior>().history = "Original"; //Lol
 	    }
+
 	}
+
+	public void SpawnBubble(float radius, Sprite sp, Color color, Vector3 pos){
+	    int numberOfBubbles = Random.Range(1, (int) (radius*100) + 3);
+        for(int i = 0; i <= numberOfBubbles; i++){
+            float randomRadius = Random.Range(0.1f, 1)/40;
+            int randIndex = Random.Range(0, 6);
+
+            //You need to get the color based on the sprite array! Right now you are passing in the color
+            //    and getting a random sprite!
+
+            GameObject temp = (GameObject) Instantiate(bubble, pos, Quaternion.identity);
+            temp.transform.localScale = new Vector3(randomRadius*2, randomRadius*2, 0f);
+
+            temp.GetComponent<BubbleBehavior>().SetColor( possibleColors[randIndex]);
+            temp.GetComponent<BubbleBehavior>().SetSprite(possibleSprites[randIndex]);
+            temp.GetComponent<BubbleBehavior>().SetRadius(randomRadius);
+            temp.GetComponent<BubbleBehavior>().immunityDelay = 100;
+            temp.GetComponent<BubbleBehavior>().history = "Spawned from SpawnBubble"; //Lol
+            temp.GetComponent<Rigidbody2D>().AddForce(new Vector3(Random.Range(-2f, 2f)*100, Random.Range(-2f, 2f)*100, 0));
+        }
+    }
 
 	public Color[] getColorArray(){
 	    return possibleColors;

@@ -9,6 +9,9 @@ public class BubbleBehavior : MonoBehaviour {
 	public Color color;
 	public GameObject ring;
 	public Sprite sp;
+	public int immunityDelay = 0;
+
+	public String history = "";
 
     private Vector3 shiftedPoint;
     private int randDir;
@@ -16,12 +19,15 @@ public class BubbleBehavior : MonoBehaviour {
 	private SoundManager sound;
 	private ScoreManager score;
 	private CircleCollider2D collider;
+	private Rigidbody2D rb;
+
 
 	public void SetColor(Color color){
 		this.color = color;
 	}
 
 	public void SetSprite(Sprite sp){
+	    GetComponent<SpriteRenderer>().sprite = sp;
     	this.sp = sp;
     }
 
@@ -35,27 +41,43 @@ public class BubbleBehavior : MonoBehaviour {
 		cam = Camera.main;
 		sound = cam.GetComponent<SoundManager>();
 		score = cam.GetComponent<ScoreManager>();
+		rb = GetComponent<Rigidbody2D>();
+		rb.mass = radius*100;
 	}
-	
+
+	void Update(){
+	    if(Input.GetButtonDown("Fire1")){
+	        immunityDelay = 0;
+	    }
+	}
 
 	void FixedUpdate () {
+	    if(immunityDelay > 0){
+	        immunityDelay--;
+	    }
 	    MakeRandomMovement(shiftedPoint);
 	}
 
 	void Pop(){
-		
 		GameObject ring = (GameObject)Instantiate(this.ring, transform.position, Quaternion.identity);
 		ring.GetComponent<WaveBehavior>().maxSize = radius*16;
 		ring.GetComponent<WaveBehavior>().ringWidth = .00001f;
 		ring.GetComponent<WaveBehavior>().expansionSpeed = .01f;
 		ring.GetComponent<WaveBehavior>().SetColor(color);
+		SpawnNewBubbles();
 		sound.PlayPop(radius);
 		score.AddScore(3);
 		Destroy(gameObject);
 	}
 
+	void SpawnNewBubbles(){
+	    if(radius > 0.014f){
+            cam.GetComponent<InitialSetup>().SpawnBubble(radius, sp, color, transform.position);
+	    }
+	}
+
 	void OnTriggerEnter2D(Collider2D other){
-        if(other.CompareTag("Wave")){
+        if(other.CompareTag("Wave") && immunityDelay == 0){
 			if(other.GetComponent<WaveBehavior>().color.Equals(Color.white)) {
 				if(radius > 65) {
 					cam.GetComponent<CameraShakeBehavior>().ShakeCamera(.2f);
@@ -74,20 +96,26 @@ public class BubbleBehavior : MonoBehaviour {
 				Sprite newSprite = sprites[index];
 
 				GetComponent<SpriteRenderer>().sprite = newSprite;
-				//GetComponent<Renderer>().material.color = other.GetComponent<WaveBehavior>().color;
+				sp = newSprite;
 				sound.PlayFlip(radius);
+				immunityDelay = 100;
+                Vector3 push = (transform.position - other.GetComponent<WaveBehavior>().origin).normalized*other.GetComponent<WaveBehavior>().maxSize;
+                rb.AddForce(push, ForceMode2D.Impulse);
 			}
 		}
 	}
 
 	void OnTriggerStay2D(Collider2D other){
-        if(other.CompareTag("Bubble")){
+        if(other.CompareTag("Bubble") && sp == other.GetComponent<BubbleBehavior>().sp){
             mergeBubbles(other);
         }
     }
 
     void MakeRandomMovement(Vector3 point){
-        transform.RotateAround(point, Vector3.forward, randDir * 7 * Time.deltaTime);
+        //transform.RotateAround(point, Vector3.forward, randDir * 7 * Time.deltaTime);
+        if(Random.Range(0, 60) == 0){
+            rb.AddForce(new Vector3(Random.Range(-.6f, .6f), Random.Range(-.6f, .6f), 0));
+        }
     }
 
     void mergeBubbles(Collider2D other){
@@ -114,5 +142,6 @@ public class BubbleBehavior : MonoBehaviour {
         newBubble.GetComponent<BubbleBehavior>().SetColor(newColor);
         newBubble.GetComponent<BubbleBehavior>().SetSprite(newSprite);
         newBubble.GetComponent<BubbleBehavior>().SetRadius(newRadius);
+        newBubble.GetComponent<BubbleBehavior>().history = "Born from a merge";
     }
 }

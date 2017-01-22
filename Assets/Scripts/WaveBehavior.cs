@@ -10,6 +10,8 @@ public class WaveBehavior : MonoBehaviour {
 	public float ringWidth;
 	public GameObject myBubble;
 	public Color color;
+	public PhysicsMaterial2D wavePhysics;
+	public Vector3 origin;
 
 	private CircleCollider2D outerRingCollider;
 	private SpriteRenderer sprite;
@@ -19,9 +21,12 @@ public class WaveBehavior : MonoBehaviour {
 		numWaves++;
 		sprite = GetComponentInChildren<SpriteRenderer>();
 		sprite.color = color;
+		origin = transform.position;
 
 		outerRingCollider = gameObject.AddComponent<CircleCollider2D>() as CircleCollider2D;
 		outerRingCollider.radius = 3.75f;
+		outerRingCollider.sharedMaterial = wavePhysics;
+		outerRingCollider.isTrigger = true;
 		transform.localScale = new Vector3(0f, 0f, 0f);
 	}
 
@@ -38,6 +43,14 @@ public class WaveBehavior : MonoBehaviour {
 			KillRing();
 		}
 	}
+
+	/*void OnCollisionEnter2D(Collision2D other){
+	    if(other.gameObject.tag == "Bubble"){
+	            ContactPoint2D point = other.contacts[0];
+	    	    //other.gameObject.GetComponent<Rigidbody2D>().AddForce(-point.normal * 50);
+
+	    }
+	}*/
 
 	void KillRing(){
 		numWaves--;
