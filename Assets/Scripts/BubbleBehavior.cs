@@ -64,7 +64,8 @@ public class BubbleBehavior : MonoBehaviour {
 
 
 		if(radius >= .28) {
-			Pop();
+		    radius = .279999f;
+			Pop(5); //Jank boys
 		}
 
 	    if(immunityDelay > 0){
@@ -87,19 +88,19 @@ public class BubbleBehavior : MonoBehaviour {
 
 	}
 
-	void Pop(){
+	void Pop(int prevCombo){
 		GameObject ring = (GameObject)Instantiate(this.ring, transform.position, Quaternion.identity);
 		ring.GetComponent<WaveBehavior>().maxSize = radius*12;
 		ring.GetComponent<WaveBehavior>().ringWidth = .00001f;
 		ring.GetComponent<WaveBehavior>().expansionSpeed = .01f;
 		ring.GetComponent<WaveBehavior>().SetColor(color);
-
+        ring.GetComponent<WaveBehavior>().comboCounter = prevCombo + 1;
 		if(GetNumBubbles() < 500) {
 			SpawnNewBubbles();
 		}
 
 		sound.PlayPop(radius);
-		score.AddScore(3);
+		score.AddScore((int) (Mathf.Pow(2, prevCombo)*100*radius));
 
 		shrinkDelay = 15;
 		immunityDelay = 500;
@@ -114,13 +115,12 @@ public class BubbleBehavior : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
-
 		if(other.CompareTag("Wave") && other.GetComponent<WaveBehavior>().color.Equals(Color.white)) {
 			other.GetComponent<WaveBehavior>().maxSize = 0;
 			if(radius > 65) {
 				cam.GetComponent<CameraShakeBehavior>().ShakeCamera(.2f);
 			}
-			Pop();
+			Pop(0);
 		}
 
         if(other.CompareTag("Wave") && immunityDelay == 0){
@@ -131,7 +131,7 @@ public class BubbleBehavior : MonoBehaviour {
 				Pop();*/
 			}
 			else if(other.GetComponent<WaveBehavior>().color.Equals(color)) {
-				Pop();
+				Pop(other.GetComponent<WaveBehavior>().comboCounter);
 			}
 			else {
 			    Color[] colors = Camera.main.GetComponent<InitialSetup>().getColorArray();

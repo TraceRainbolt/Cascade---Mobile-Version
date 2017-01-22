@@ -12,6 +12,8 @@ public class WaveBehavior : MonoBehaviour {
 	public Color color;
 	public PhysicsMaterial2D wavePhysics;
 	public Vector3 origin;
+	public int comboCounter = 0;
+	public GameObject displayMult;
 
 	private CircleCollider2D outerRingCollider;
 	private SpriteRenderer sprite;
@@ -19,6 +21,8 @@ public class WaveBehavior : MonoBehaviour {
 	private CameraShakeBehavior camShake;
 
 	void Start () {
+	    GetComponent<ParticleSystem>().Play();
+	    GetComponent<ParticleSystem>().startColor = color;
 		numWaves++;
 		sprite = GetComponentInChildren<SpriteRenderer>();
 		sprite.color = color;
@@ -31,6 +35,9 @@ public class WaveBehavior : MonoBehaviour {
 		transform.localScale = new Vector3(0f, 0f, 0f);
 
 		camShake = Camera.main.GetComponent<CameraShakeBehavior>();
+		GameObject displayed = (GameObject) Instantiate(displayMult, transform.position, Quaternion.identity);
+		displayed.GetComponent<ComboBehavior>().SetMultiplier(comboCounter - 1);
+
 	}
 
 	public void SetColor(Color color){

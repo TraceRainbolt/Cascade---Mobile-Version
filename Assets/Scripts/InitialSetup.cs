@@ -49,15 +49,15 @@ public class InitialSetup : MonoBehaviour {
 	}
 
 	public void SpawnBubble(float radius, Sprite sp, Color color, Vector3 pos){
-	    int numberOfBubbles = Random.Range(1, (int) (radius*100) + 1);
+	    int numberOfBubbles = Random.Range(1, (int) (radius*100) + 3);
 		float sizeMultiplier = 1f;
 
 		if(radius > .1f) {
-			numberOfBubbles = 4;
+			numberOfBubbles = 5;
 			sizeMultiplier = 1.1f;
 		}
 		if(radius > .2f) {
-			numberOfBubbles = 7;
+			numberOfBubbles = 10;
 			sizeMultiplier = 1.8f;
 		}
 
