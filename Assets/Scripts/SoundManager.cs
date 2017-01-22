@@ -14,7 +14,7 @@ public class SoundManager : MonoBehaviour {
 	public AudioSource sourceAdrenaline;
 
 	void Start () {
-        sourceAdrenaline.PlayOneShot(adrenaline, 1f);
+        sourceAdrenaline.PlayOneShot(adrenaline, .75f);
         sourceAdrenaline.loop = true;
 	}
 	
