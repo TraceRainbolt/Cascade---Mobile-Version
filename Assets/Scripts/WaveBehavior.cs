@@ -16,6 +16,7 @@ public class WaveBehavior : MonoBehaviour {
 	private CircleCollider2D outerRingCollider;
 	private SpriteRenderer sprite;
 	private float sizeDiff;
+	private CameraShakeBehavior camShake;
 
 	void Start () {
 		numWaves++;
@@ -28,6 +29,8 @@ public class WaveBehavior : MonoBehaviour {
 		outerRingCollider.sharedMaterial = wavePhysics;
 		outerRingCollider.isTrigger = true;
 		transform.localScale = new Vector3(0f, 0f, 0f);
+
+		camShake = Camera.main.GetComponent<CameraShakeBehavior>();
 	}
 
 	public void SetColor(Color color){
@@ -35,6 +38,15 @@ public class WaveBehavior : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+
+		if(maxSize > 3 && transform.localScale.x*2.4 < maxSize) {
+			camShake.ShakeCamera(.2f);
+		} else if(maxSize > 2 && transform.localScale.x*2.4 < maxSize) {
+			camShake.ShakeCamera(.1f);
+		}else if(maxSize > 1.4 && transform.localScale.x*2.4 < maxSize) {
+			camShake.ShakeCamera(.05f);
+		}
+
 		if(transform.localScale.x < maxSize) {
 			transform.localScale += new Vector3(expansionSpeed, expansionSpeed, 0f);
 			sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1-(transform.localScale.x / maxSize));

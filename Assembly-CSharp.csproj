@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\BackgroundOverlay.cs" />
      <Compile Include="Assets\Scripts\BubbleBehavior.cs" />
      <Compile Include="Assets\Scripts\CameraShakeBehavior.cs" />
+     <Compile Include="Assets\Scripts\ExplosionBehavior.cs" />
      <Compile Include="Assets\Scripts\InitialSetup.cs" />
      <Compile Include="Assets\Scripts\MouseBehavior.cs" />
      <Compile Include="Assets\Scripts\ScoreManager.cs" />

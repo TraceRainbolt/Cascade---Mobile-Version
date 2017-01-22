@@ -49,9 +49,20 @@ public class InitialSetup : MonoBehaviour {
 	}
 
 	public void SpawnBubble(float radius, Sprite sp, Color color, Vector3 pos){
-	    int numberOfBubbles = Random.Range(1, (int) (radius*100) + 3);
+	    int numberOfBubbles = Random.Range(1, (int) (radius*100) + 1);
+		float sizeMultiplier = 1f;
+
+		if(radius > .1f) {
+			numberOfBubbles = 4;
+			sizeMultiplier = 1.1f;
+		}
+		if(radius > .2f) {
+			numberOfBubbles = 7;
+			sizeMultiplier = 1.8f;
+		}
+
         for(int i = 0; i <= numberOfBubbles; i++){
-            float randomRadius = Random.Range(0.1f, 1)/40;
+            float randomRadius = Random.Range(0.1f, 1)/40 * sizeMultiplier;
             int randIndex = Random.Range(0, 6);
 
             //You need to get the color based on the sprite array! Right now you are passing in the color
@@ -65,7 +76,7 @@ public class InitialSetup : MonoBehaviour {
             temp.GetComponent<BubbleBehavior>().SetRadius(randomRadius);
             temp.GetComponent<BubbleBehavior>().immunityDelay = 100;
             temp.GetComponent<BubbleBehavior>().history = "Spawned from SpawnBubble"; //Lol
-            temp.GetComponent<Rigidbody2D>().AddForce(new Vector3(Random.Range(-2f, 2f)*100, Random.Range(-2f, 2f)*100, 0));
+            temp.GetComponent<Rigidbody2D>().AddForce(new Vector3(Random.Range(-2f, 2f)*100*sizeMultiplier, Random.Range(-2f, 2f)*100*sizeMultiplier, 0));
         }
     }
 

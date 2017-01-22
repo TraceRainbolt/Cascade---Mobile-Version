@@ -7,12 +7,12 @@ public class MouseBehavior : MonoBehaviour {
 
 
 	void Update () {
-		if(Input.GetButtonDown("Fire1") && GameObject.FindGameObjectsWithTag("Wave").Length == 0) {
+		if(Input.GetButtonDown("Fire1")/* && GameObject.FindGameObjectsWithTag("Wave").Length == 0*/) {
 
-			GameObject[] bubbles = GameObject.FindGameObjectsWithTag("Bubble");
+			/*GameObject[] bubbles = GameObject.FindGameObjectsWithTag("Bubble");
 			for(int i = 0; i < bubbles.Length; i++) {
 				bubbles[i].GetComponent<BubbleBehavior>().immunityDelay = 0;
-			}
+			}*/
 
 			Vector3 inM = Input.mousePosition;
 			Vector3 inMod = new Vector3(inM.x, inM.y, 1f);

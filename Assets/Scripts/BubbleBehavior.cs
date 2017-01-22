@@ -12,6 +12,8 @@ public class BubbleBehavior : MonoBehaviour {
 	public int immunityDelay = 0;
 	public int shrinkDelay = -1;
 	public String history = "";
+	public GameObject exploder;
+
 
     private Vector3 shiftedPoint;
     private int randDir;
@@ -30,6 +32,12 @@ public class BubbleBehavior : MonoBehaviour {
 	    GetComponent<SpriteRenderer>().sprite = sp;
     	this.sp = sp;
     }
+
+	void Update(){
+		if(Input.GetButtonDown("Fire1")) {
+			//immunityDelay = 0;
+		}
+	}
 
 	public void SetRadius(float radius){
 		this.radius = radius;
@@ -50,13 +58,15 @@ public class BubbleBehavior : MonoBehaviour {
 		return GameObject.FindGameObjectsWithTag("Bubble").Length;
 	}
 
-	void Update(){
-		if(Input.GetKeyDown("q")) {
-			print(GetNumBubbles());
-		}
-	}
+
 
 	void FixedUpdate () {
+
+
+		if(radius >= .28) {
+			Pop();
+		}
+
 	    if(immunityDelay > 0){
 	        immunityDelay--;
 	    }
@@ -98,18 +108,27 @@ public class BubbleBehavior : MonoBehaviour {
 	}
 
 	void SpawnNewBubbles(){
-	    if(radius > 0.014f){
+	    if(radius > 0.022f){
             cam.GetComponent<InitialSetup>().SpawnBubble(radius, sp, color, transform.position);
 	    }
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
+
+		if(other.CompareTag("Wave") && other.GetComponent<WaveBehavior>().color.Equals(Color.white)) {
+			other.GetComponent<WaveBehavior>().maxSize = 0;
+			if(radius > 65) {
+				cam.GetComponent<CameraShakeBehavior>().ShakeCamera(.2f);
+			}
+			Pop();
+		}
+
         if(other.CompareTag("Wave") && immunityDelay == 0){
 			if(other.GetComponent<WaveBehavior>().color.Equals(Color.white)) {
-				if(radius > 65) {
+				/*if(radius > 65) {
 					cam.GetComponent<CameraShakeBehavior>().ShakeCamera(.2f);
 				}
-				Pop();
+				Pop();*/
 			}
 			else if(other.GetComponent<WaveBehavior>().color.Equals(color)) {
 				Pop();
@@ -133,7 +152,7 @@ public class BubbleBehavior : MonoBehaviour {
 	}
 
 	void OnTriggerStay2D(Collider2D other){
-        if(other.CompareTag("Bubble") && sp == other.GetComponent<BubbleBehavior>().sp){
+        if(other.CompareTag("Bubble") && sp == other.GetComponent<BubbleBehavior>().sp && immunityDelay <= 90){
             mergeBubbles(other);
         }
     }
@@ -171,6 +190,7 @@ public class BubbleBehavior : MonoBehaviour {
         newBubble.GetComponent<BubbleBehavior>().SetRadius(newRadius);
         newBubble.GetComponent<BubbleBehavior>().history = "Born from a merge";
 
-
+		GameObject exp = (GameObject)Instantiate(exploder, newBubble.transform.position, Quaternion.identity);
+		exp.GetComponent<ExplosionBehavior>().SetColor(newColor);
     }
 }

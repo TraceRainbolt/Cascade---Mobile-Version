@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour {
 	public AudioClip counterSound;
 	public AudioClip popSound;
 	public AudioClip flipSound;
-	public AudioClip adrenaline;
+
 
 	public AudioSource sourcePop;
 	public AudioSource sourceCounterDing;
@@ -14,7 +14,7 @@ public class SoundManager : MonoBehaviour {
 	public AudioSource sourceAdrenaline;
 
 	void Start () {
-        sourceAdrenaline.PlayOneShot(adrenaline, .75f);
+        sourceAdrenaline.Play();
         sourceAdrenaline.loop = true;
 	}
 	
