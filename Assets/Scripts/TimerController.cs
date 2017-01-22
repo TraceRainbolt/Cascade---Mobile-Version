@@ -6,19 +6,32 @@ public class TimerController : MonoBehaviour {
 
     public float timeLeft = 180;
 
+	public bool gameOver;
+
 	// Use this for initialization
 	void Start () {
-	
+		gameOver = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	    timeLeft -= Time.deltaTime;
-	    if(timeLeft >= 0){
-             string minutes = Mathf.Floor(timeLeft / 60).ToString("0");
-             string seconds = Mathf.Floor(timeLeft % 60).ToString("00");
-	         GetComponent<Text>().text = minutes + ":" + seconds;
-	    }
+		if(timeLeft >= 0) {
+			string minutes = Mathf.Floor(timeLeft / 60).ToString("0");
+			string seconds = Mathf.Floor(timeLeft % 60).ToString("00");
+			GetComponent<Text>().text = minutes + ":" + seconds;
+		}
+		else {
+			gameOver = true;
+			GameOver();
+		}
+	}
+
+	void GameOver(){
+		Camera.main.GetComponent<MouseBehavior>().GameOver();
+
+
+
 	}
 
 	void FixedUpdate(){

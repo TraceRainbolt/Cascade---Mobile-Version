@@ -11,6 +11,7 @@ public class ComboTextBehavior : MonoBehaviour {
 	        Destroy(gameObject);
 	    } else {
 	        Camera.main.GetComponent<CameraShakeBehavior>().ShakeCamera(.4f);
+			Camera.main.GetComponent<SoundManager>().PlayCombo();
 	    }
 	    transform.localScale = Vector3.zero;
 	    Destroy(gameObject, 2);

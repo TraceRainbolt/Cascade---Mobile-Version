@@ -99,7 +99,15 @@ public class BubbleBehavior : MonoBehaviour {
 			SpawnNewBubbles();
 		}
 
-		sound.PlayPop(radius);
+		if(radius > .16f) {
+			sound.PlayBigPop();
+		}
+		else {
+			sound.PlayPop(radius);
+		}
+
+
+
 		score.AddScore((int) (Mathf.Pow(2, prevCombo)*100*radius));
 
 		shrinkDelay = 15;

@@ -6,8 +6,9 @@ public class ComboBehavior : MonoBehaviour {
     public const int MAX_COMBO = 7;
     public Sprite[] sprites = new Sprite[MAX_COMBO];
     public GameObject comboText;
-
+	private int mult;
 	void Start () {
+		Camera.main.GetComponent<SoundManager>().PlayMultiplier(mult);
 	    Destroy(gameObject, 2);
 	}
 	
@@ -24,5 +25,6 @@ public class ComboBehavior : MonoBehaviour {
 	    }
 	    transform.localScale = new Vector3(.1f*mult, .1f*mult, 0);
         GetComponent<SpriteRenderer>().sprite = sprites[mult];
+		this.mult = mult;
 	}
 }

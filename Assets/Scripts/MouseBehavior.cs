@@ -5,14 +5,15 @@ public class MouseBehavior : MonoBehaviour {
 
 	public GameObject ring;
 
+	private bool done = false;
+
+	public void GameOver(){
+		done = true;
+	}
 
 	void Update () {
-		if(Input.GetButtonDown("Fire1")/* && GameObject.FindGameObjectsWithTag("Wave").Length == 0*/) {
+		if(Input.GetButtonDown("Fire1") && done == false) {
 
-			/*GameObject[] bubbles = GameObject.FindGameObjectsWithTag("Bubble");
-			for(int i = 0; i < bubbles.Length; i++) {
-				bubbles[i].GetComponent<BubbleBehavior>().immunityDelay = 0;
-			}*/
 
 			Vector3 inM = Input.mousePosition;
 			Vector3 inMod = new Vector3(inM.x, inM.y, 1f);
