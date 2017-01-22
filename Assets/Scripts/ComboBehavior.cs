@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ComboBehavior : MonoBehaviour {
 
-    public const int MAX_COMBO = 7;
+    public const int MAX_COMBO = 9;
     public Sprite[] sprites = new Sprite[MAX_COMBO];
     public GameObject comboText;
 	private int mult;

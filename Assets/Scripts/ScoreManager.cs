@@ -23,22 +23,24 @@ public class ScoreManager : MonoBehaviour {
 
 	void FixedUpdate () {
 		if(scoreDisplayed != totalScore) {
-
 			if(totalScore - scoreDisplayed <= 10) {
 				delayFrames = 10;
-
-			}
-			else if(totalScore - scoreDisplayed <= 30) {
+			}else if(totalScore - scoreDisplayed <= 30) {
 				delayFrames = 5;
-
 				scoreDisplayed++;
 			}else if(totalScore - scoreDisplayed <= 60) {
 				delayFrames = 2;
 				scoreDisplayed += 2;
-
-			}
-
-
+			}else if(totalScore - scoreDisplayed <= 500) {
+                delayFrames = 2;
+                scoreDisplayed += 100;
+            }else if(totalScore - scoreDisplayed <= 1000) {
+                 delayFrames = 2;
+                 scoreDisplayed += 500;
+            } else {
+                delayFrames = 2;
+                scoreDisplayed += 1000;
+            }
 
 			if(delayCounter >= delayFrames) {
 				delayCounter = 0;
