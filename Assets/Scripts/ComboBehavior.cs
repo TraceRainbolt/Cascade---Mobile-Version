@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ComboBehavior : MonoBehaviour {
 
-    public const int MAX_COMBO = 9;
+    public const int MAX_COMBO = 11;
     public Sprite[] sprites = new Sprite[MAX_COMBO];
     public GameObject comboText;
 	private int mult;
@@ -22,8 +22,10 @@ public class ComboBehavior : MonoBehaviour {
 	        return;
 	    if(mult == 6){
 	        Instantiate(comboText, new Vector3(0, 0.4f, 0), Quaternion.identity);
-	    }
-	    transform.localScale = new Vector3(.1f*mult, .1f*mult, 0);
+        }if(mult > MAX_COMBO){
+            mult = MAX_COMBO;
+        }
+	    transform.localScale = new Vector3(.06f*mult, .06f*mult, 0);
         GetComponent<SpriteRenderer>().sprite = sprites[mult];
 		this.mult = mult;
 	}
