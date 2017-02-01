@@ -7,10 +7,16 @@ public class GameOverBehavior : MonoBehaviour {
 
 	public GameObject wave;
 	public Text text;
+	public InputField name;
+
+	private int score;
+	public static string defaultName = "Enter Name";
 
 	// Use this for initialization
 	void Start () {
-		text.text = GameObject.FindGameObjectWithTag("ScoreSaver").GetComponent<ScoreSaverBehavior>().finalScore + "";
+	    score = GameObject.FindGameObjectWithTag("ScoreSaver").GetComponent<ScoreSaverBehavior>().finalScore;
+		text.text = score + "";
+		name.text = defaultName;
 		FadeIn();
 	}
 	
@@ -25,7 +31,9 @@ public class GameOverBehavior : MonoBehaviour {
 			ring.GetComponent<WaveBehavior>().shake = false;
 		}
 
-		if(Input.GetButtonDown("Fire1")) {
+		if(Input.GetButtonDown("Fire1") && name.text != "Enter Name") {
+		    defaultName = name.text;
+		    Camera.main.GetComponent<HSController>().SendScore(name.text, score);
             StartCoroutine(FadeOut());
 		}
 	}

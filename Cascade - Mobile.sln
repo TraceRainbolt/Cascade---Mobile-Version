@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{7E534FA9-6DE1-B3F0-AF7D-BE310C9AACAB}") = "Cascade - Mobile", "Assembly-CSharp.csproj", "{2F805C2C-3122-5F16-972B-40E04058C1D9}"
+EndProject
+Project("{7E534FA9-6DE1-B3F0-AF7D-BE310C9AACAB}") = "Cascade - Mobile", "Assembly-CSharp-Editor.csproj", "{90FC5AE3-7EE0-E48E-C112-4A9D860F9218}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F805C2C-3122-5F16-972B-40E04058C1D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F805C2C-3122-5F16-972B-40E04058C1D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F805C2C-3122-5F16-972B-40E04058C1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F805C2C-3122-5F16-972B-40E04058C1D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90FC5AE3-7EE0-E48E-C112-4A9D860F9218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90FC5AE3-7EE0-E48E-C112-4A9D860F9218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90FC5AE3-7EE0-E48E-C112-4A9D860F9218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90FC5AE3-7EE0-E48E-C112-4A9D860F9218}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal

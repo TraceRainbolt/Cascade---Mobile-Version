@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{088EDC65-D7B1-CADE-0082-D48CB2B48ABB}</ProjectGuid>
+    <ProjectGuid>{2F805C2C-3122-5F16-972B-40E04058C1D9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\FadeOutMain.cs" />
      <Compile Include="Assets\Scripts\Fading.cs" />
      <Compile Include="Assets\Scripts\GameOverBehavior.cs" />
+     <Compile Include="Assets\Scripts\HSController.cs" />
      <Compile Include="Assets\Scripts\ImplodeBehavior.cs" />
      <Compile Include="Assets\Scripts\InitialSetup.cs" />
      <Compile Include="Assets\Scripts\MouseBehavior.cs" />
@@ -65,6 +66,7 @@
      <Compile Include="Assets\Scripts\SpawnParticleBehavior.cs" />
      <Compile Include="Assets\Scripts\StartMenuButtonBehavior.cs" />
      <Compile Include="Assets\Scripts\TimerController.cs" />
+     <Compile Include="Assets\Scripts\Utilities.cs" />
      <Compile Include="Assets\Scripts\Vibration.cs" />
      <Compile Include="Assets\Scripts\WaveBehavior.cs" />
      <None Include="Assets\Animations\Animations.txt" />
