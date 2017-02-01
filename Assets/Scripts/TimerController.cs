@@ -61,7 +61,7 @@ public class TimerController : MonoBehaviour {
 
 	void GameOver(){
 		gameOverDelay--;
-		Camera.main.GetComponent<SoundManager>().sourceAdrenaline.volume -= .005f;
+		//Camera.main.GetComponent<SoundManager>().sourceAdrenaline.volume -= .005f;
 		if(gameOverDelay <= 0 && GameObject.FindGameObjectsWithTag("Wave").Length == 0 && Camera.main.GetComponent<ScoreManager>().totalScore <= Camera.main.GetComponent<ScoreManager>().scoreDisplayed) {
 			if(stopForReal == false) {
 				stopForReal = true;

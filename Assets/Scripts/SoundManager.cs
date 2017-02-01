@@ -26,8 +26,8 @@ public class SoundManager : MonoBehaviour {
 	void Start () {
 
 		if(playMusic) {
-			sourceAdrenaline = GameObject.FindGameObjectWithTag("ScoreSaver").GetComponent<AudioSource>();
-
+			sourceAdrenaline = GameObject.FindGameObjectWithTag("ScoreSaver").GetComponents<AudioSource>()[0];
+			sourceAdrenaline.volume = 1f;
 			sourceAdrenaline.Play();
 
 		}

@@ -68,6 +68,12 @@ public class BubbleBehavior : MonoBehaviour {
 	void FixedUpdate () {
 	    if(immunityDelay > 0){
 	        immunityDelay--;
+			if (immunityDelay > 1) {
+				GetComponent<SpriteRenderer> ().color = new Color (1f, 1f, 1f, .6f+(1/(float)immunityDelay));
+			}
+			if (immunityDelay == 0) {
+				GetComponent<SpriteRenderer> ().color = new Color (1f, 1f, 1f, 1f);
+			}
 	    }
 		if(shrinkDelay != -1) {
 			if(shrinkDelay == 0) {

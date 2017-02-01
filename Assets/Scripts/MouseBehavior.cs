@@ -8,6 +8,8 @@ public class MouseBehavior : MonoBehaviour {
 	private bool done = false;
 	private int delay = 0;
 
+	private int maxTouches = 4;
+
 	public void GameOver(){
 		done = true;
 		GameObject.FindGameObjectWithTag("ScoreSaver").GetComponent<ScoreSaverBehavior>().finalScore = Camera.main.GetComponent<ScoreManager>().totalScore;
@@ -16,7 +18,11 @@ public class MouseBehavior : MonoBehaviour {
 	void Update () {
 		if(Input.touchCount > 0 && done == false && delay <= 0) {
 		    Touch[] touches = Input.touches;
-		    for(int i = 0; i < Input.touchCount; i++){
+			int max = Input.touchCount;
+			if (max > maxTouches) {
+				max = maxTouches;
+			}
+		    for(int i = 0; i < max; i++){
                 Vector3 inM = touches[i].position;
                 Vector3 inMod = new Vector3(inM.x, inM.y, 1f);
                 GameObject ring = (GameObject) Instantiate(this.ring, Camera.main.ScreenToWorldPoint(inMod), Quaternion.identity);
