@@ -17,6 +17,7 @@ public class GameOverBehavior : MonoBehaviour {
 	    score = GameObject.FindGameObjectWithTag("ScoreSaver").GetComponent<ScoreSaverBehavior>().finalScore;
 		text.text = score + "";
 		name.text = defaultName;
+
 		FadeIn();
 	}
 	

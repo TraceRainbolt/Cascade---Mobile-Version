@@ -9,7 +9,7 @@ public class ObjectPuller : MonoBehaviour {
      public void FixedUpdate() {
          foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position, pullRadius)) {
             if(collider.GetComponent<Rigidbody>() != null){
-                 print("hi");
+                 //print("hi");
                  // calculate direction from target to me
                  Vector3 forceDirection = transform.position - collider.transform.position;
 
