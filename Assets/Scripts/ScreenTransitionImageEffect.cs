@@ -23,6 +23,7 @@ public class ScreenTransitionImageEffect : MonoBehaviour
     public bool activated = false;
     public GameObject button;
     public GameObject logo;
+	public GameObject settingsbut;
     public bool isFading = false;
 
     private Material m_Material;
@@ -73,6 +74,7 @@ public class ScreenTransitionImageEffect : MonoBehaviour
     void fadeLogo(){
         Color lc = logo.GetComponent<Image>().color;
         logo.GetComponent<Image>().color = new Color(lc.r, lc.g, lc.b, lc.a - 0.03f);
+		settingsbut.GetComponent<Image>().color = new Color(lc.r, lc.g, lc.b, lc.a - 0.03f);
 	}
 
 

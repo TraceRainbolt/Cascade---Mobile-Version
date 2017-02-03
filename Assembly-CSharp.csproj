@@ -63,9 +63,11 @@
      <Compile Include="Assets\Scripts\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\ScoreSaverBehavior.cs" />
      <Compile Include="Assets\Scripts\ScreenTransitionImageEffect.cs" />
+     <Compile Include="Assets\Scripts\SettingsMenuBehavior.cs" />
      <Compile Include="Assets\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Scripts\SpawnParticleBehavior.cs" />
      <Compile Include="Assets\Scripts\StartMenuButtonBehavior.cs" />
+     <Compile Include="Assets\Scripts\StartMenuSettingsButton.cs" />
      <Compile Include="Assets\Scripts\TimerController.cs" />
      <Compile Include="Assets\Scripts\Utilities.cs" />
      <Compile Include="Assets\Scripts\Vibration.cs" />

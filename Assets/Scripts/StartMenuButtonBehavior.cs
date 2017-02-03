@@ -38,7 +38,10 @@ public class StartMenuButtonBehavior : MonoBehaviour {
 			ring.GetComponent<WaveBehavior>().SetColor(new Color(0f, .9f, .7f));
 			ring.GetComponent<WaveBehavior>().comboCounter = 0;
 		}
-		GameObject.FindGameObjectWithTag ("ScoreSaver").GetComponents<AudioSource> () [1].Play ();
+
+		if (GameObject.FindGameObjectWithTag ("ScoreSaver").GetComponent<ScoreSaverBehavior> ().playSoundEffects) {
+			GameObject.FindGameObjectWithTag ("ScoreSaver").GetComponents<AudioSource> () [1].Play ();
+		}
 		Camera.main.GetComponent<ScreenTransitionImageEffect>().activated = true;
 		Destroy(gameObject);
 	}

@@ -23,31 +23,51 @@ public class SoundManager : MonoBehaviour {
 	public AudioSource sourceMult;
 	public AudioSource sourceCheer;
 
+	public ScoreSaverBehavior info;
+
 	void Start () {
 
-		if(playMusic) {
+		info = GameObject.FindGameObjectWithTag ("ScoreSaver").GetComponent<ScoreSaverBehavior>();
+
+		if(info != null && playMusic && info.playMusic) {
 			sourceAdrenaline = GameObject.FindGameObjectWithTag("ScoreSaver").GetComponents<AudioSource>()[0];
 			sourceAdrenaline.volume = 1f;
 			sourceAdrenaline.Play();
 
 		}
+
+
 	}
 
 	private int cheerCooldown = 100;
 	private int beepCooldown = 0;
 
 	void FixedUpdate () {
-		if(cheerCooldown > 0) {
-			cheerCooldown--;
+
+		if (info == null) {
+			info = GameObject.FindGameObjectWithTag ("ScoreSaver").GetComponent<ScoreSaverBehavior>();
+
+			if(info != null && playMusic && info.playMusic) {
+				sourceAdrenaline = GameObject.FindGameObjectWithTag("ScoreSaver").GetComponents<AudioSource>()[0];
+				sourceAdrenaline.volume = 1f;
+				sourceAdrenaline.Play();
+
+			}
+
 		}
-		if(beepCooldown > 0) {
-			beepCooldown--;
+		else if (info.playSoundEffects) {
+			if (cheerCooldown > 0) {
+				cheerCooldown--;
+			}
+			if (beepCooldown > 0) {
+				beepCooldown--;
+			}
 		}
 	}
 
 	public void PlayCheer(){
 
-		if(cheerCooldown == 0) {
+		if(cheerCooldown == 0 && info.playSoundEffects) {
 			sourceCheer.PlayOneShot(cheerSound, .75f);
 			cheerCooldown = 100;
 		}
@@ -57,7 +77,7 @@ public class SoundManager : MonoBehaviour {
 
 	public void PlayBeep(){
 
-		if(beepCooldown == 0) {
+		if(beepCooldown == 0 && info.playSoundEffects) {
 			sourceCheer.PlayOneShot(timerSound, .05f*(12-GameObject.FindGameObjectWithTag("Timer").GetComponent<TimerController>().timeLeft));
 			beepCooldown = 59;
 		}
@@ -66,52 +86,63 @@ public class SoundManager : MonoBehaviour {
 	}
 
 	public void PlayMultiplier(int mult){
-		float newVol = .1f * mult;
+		if (info.playSoundEffects) {
+			float newVol = .1f * mult;
 
-		if(newVol > 1f) {
-			newVol = 1f;
+			if (newVol > 1f) {
+				newVol = 1f;
+			}
+
+			sourceMult.PlayOneShot (multSound, newVol);
 		}
-
-		sourceMult.PlayOneShot(multSound, newVol);
 	}
 
 	public void PlayCombo(){
-		sourceCombo.pitch = 1f;
-		sourceCombo.PlayOneShot(comboSound, .8f);
+		if (info.playSoundEffects) {
+			sourceCombo.pitch = 1f;
+			sourceCombo.PlayOneShot (comboSound, .8f);
+		}
 	}
 
 	public void PlayBigPop(){
-		sourceBigPop.pitch = 1f;
-		sourceBigPop.PlayOneShot(bigPopSound, .5f);
+		if (info.playSoundEffects) {
+			sourceBigPop.pitch = 1f;
+			sourceBigPop.PlayOneShot (bigPopSound, .5f);
+		}
 	}
 
 	public void PlayScoreUp(){
-		sourceCounterDing.pitch = 2f;
-		sourceCounterDing.PlayOneShot(counterSound, .2f);
+		if (info.playSoundEffects) {
+			sourceCounterDing.pitch = 2f;
+			sourceCounterDing.PlayOneShot (counterSound, .2f);
+		}
 	}
 
 	public void SetScoreUpPitch(float num){
-		sourceCounterDing.pitch = num;
+		if (info.playSoundEffects) {
+			sourceCounterDing.pitch = num;
+		}
 	}
 
 	public void PlayFlip(float radius){
-
-		sourceFlip.pitch = 1f;
-		sourceFlip.PlayOneShot(flipSound, .15f);
+		if (info.playSoundEffects) {
+			sourceFlip.pitch = 1f;
+			sourceFlip.PlayOneShot (flipSound, .15f);
+		}
 	}
 
 	public void PlayPop(float radius){
-		float newPitch = 100 / radius - 1;
+		if (info.playSoundEffects) {
+			float newPitch = 100 / radius - 1;
 
-		if(newPitch < .1f) {
-			newPitch = .1f;
+			if (newPitch < .1f) {
+				newPitch = .1f;
+			} else if (newPitch > 2f) {
+				newPitch = 2f;
+			}
+
+			sourcePop.pitch = newPitch;
+			sourcePop.PlayOneShot (popSound, 1f);
 		}
-		else if(newPitch > 2f) {
-			newPitch = 2f;
-		}
-
-		sourcePop.pitch = newPitch;
-		sourcePop.PlayOneShot(popSound, 1f);
-
 	}
 }
