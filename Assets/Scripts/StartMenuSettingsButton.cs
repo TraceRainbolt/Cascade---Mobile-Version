@@ -13,6 +13,14 @@ public class StartMenuSettingsButton : MonoBehaviour {
 			GameObject obj = Instantiate (scoresaver, Vector3.zero, Quaternion.identity);
 			obj.GetComponent<ScoreSaverBehavior> ().playMusic = true;
 			obj.GetComponent<ScoreSaverBehavior> ().playSoundEffects = true;
+
+			if (PlayerPrefs.GetString ("music").Equals ("off")) {
+				obj.GetComponent<ScoreSaverBehavior> ().playMusic = false;
+			}
+
+			if (PlayerPrefs.GetString ("soundeffects").Equals ("off")) {
+				obj.GetComponent<ScoreSaverBehavior> ().playSoundEffects = false;
+			}
 		}
 	}
 	

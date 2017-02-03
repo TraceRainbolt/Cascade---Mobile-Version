@@ -9,6 +9,8 @@ public class GameOverBehavior : MonoBehaviour {
 	public Text text;
 	public InputField name;
 
+	public Button continueBut;
+
 	private int score;
 	public static string defaultName = "Enter Name";
 
@@ -17,6 +19,10 @@ public class GameOverBehavior : MonoBehaviour {
 	    score = GameObject.FindGameObjectWithTag("ScoreSaver").GetComponent<ScoreSaverBehavior>().finalScore;
 		text.text = score + "";
 		name.text = defaultName;
+
+		if (PlayerPrefs.GetString ("name").Equals ("") == false) {
+			name.text = PlayerPrefs.GetString ("name");
+		}
 
 		FadeIn();
 	}
@@ -31,12 +37,23 @@ public class GameOverBehavior : MonoBehaviour {
 			ring.GetComponent<WaveBehavior>().SetColor(new Color(Random.Range(0f,1f),Random.Range(0f,1f),Random.Range(0f,1f), .1f));
 			ring.GetComponent<WaveBehavior>().shake = false;
 		}
-
-		if(Input.GetButtonDown("Fire1") && name.text != "Enter Name") {
-		    defaultName = name.text;
-		    Camera.main.GetComponent<HSController>().SendScore(name.text, score);
-            StartCoroutine(FadeOut());
+		if (name.text.Equals ("Enter Name")) {
+			continueBut.interactable = false;
+		} else {
+			continueBut.interactable = true;
 		}
+		/*if(Input.GetButtonDown("Fire1") && name.text != "Enter Name") {
+		    
+		}*/
+	}
+
+	public void AdvanceScenes(){
+		
+			defaultName = name.text;
+			PlayerPrefs.SetString ("name", defaultName);
+			Camera.main.GetComponent<HSController> ().SendScore (name.text, score);
+			StartCoroutine (FadeOut ());
+
 	}
 
     void FadeIn(){
